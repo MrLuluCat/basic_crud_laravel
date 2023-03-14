@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\absensiController;
+use App\Http\Controllers\presensiController;
+use App\Models\presensi;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +21,9 @@ Route::get('/', function () {
 });
 
 Route::resource('absensi', absensiController::class);
+
+Route::resource('presensi', presensiController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -26,7 +26,7 @@ class absensiController extends Controller
         } else {
             $data = absensi::orderBy('nim', 'desc')->paginate($jumlahBaris);
         }
-        return view('absensi_crud.index')->with('data', $data);
+        return view('presensi.absenMasuk');
     }
 
     /**

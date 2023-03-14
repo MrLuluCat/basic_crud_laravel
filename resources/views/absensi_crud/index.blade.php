@@ -1,18 +1,21 @@
 @extends('layout.template')
 <!-- START DATA -->
 @section('konten')
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
-      <!-- FORM PENCARIAN -->@csrf
-      <div class="pb-3">
-        <form class="d-flex" action="" method="get">
-            <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
-            <button class="btn btn-secondary" type="submit">Cari</button>
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+     
+      <!-- FORM PENCARIAN -->
+      @csrf
+      <div class="pb-4">
+        <form class="d-flex" action="{{ url('absensi') }}" method="get">
+            <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" 
+            placeholder="Masukkan kata kunci" aria-label="Search">
+            <button class="btn btn-secondary btn-md" type="submit">Search</button>
         </form>
       </div>
-      
+
       <!-- TOMBOL TAMBAH DATA -->
       <div class="pb-3">
-        <a href='\views\absensi_crud\create.blade.php' class="btn btn-primary">+ Tambah Data</a>
+        <a href='{{ url('absensi/create') }}' class="btn btn-primary">+ Tambah Data</a>
       </div>
 
       <table class="table table-striped">
@@ -21,23 +24,54 @@
                   <th class="col-md-1">No</th>
                   <th class="col-md-3">NIM</th>
                   <th class="col-md-4">Nama</th>
-                  <th class="col-md-2">Jurusan</th>
-                  <th class="col-md-2">Aksi</th>
+                  <th class="col-md-2">Jabatan</th>
               </tr>
           </thead>
           <tbody>
+            <?php $i = $data->firstItem() ?>
+            @foreach ($data as $item)
               <tr>
-                  <td>1</td>
-                  <td>1001</td>
-                  <td>Ani</td>
-                  <td>Ilmu Komputer</td>
-                  <td>
-                      <a href='' class="btn btn-warning btn-sm">Edit</a>
-                      <a href='' class="btn btn-danger btn-sm">Del</a>
+                <td>{{ $i }}</td>
+                <td>{{ $item->nim }}</td>
+                <td>{{ $item->nama }}</td>
+                <td>{{ $item->jabatan }}</td>
+                <td>
+                    <a href='{{ url('absensi/' .$item->nim. '/edit') }}' class="btn btn-warning btn-sm">Edit</a>
+
+                      <!-- Button trigger modal -->
+                    <button type="submit" class="btn btn-danger btn-sm" name="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      Delete
+                    </button>
+
+                      <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data?</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Apakah Anda Yakin Untuk Menghapus Entry Data Ini?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form class="d-inline" action="{{ url('absensi/'.$item->nim) }}" method="POST">
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </td>
               </tr>
+              <?php $i++ ?>
+            @endforeach  
           </tbody>
       </table>
+      {{ $data->withQueryString()->links() }}
      
 </div>
 <!-- AKHIR DATA -->
@@ -45,8 +79,4 @@
 
 
 
-       
-        
-        
-        
-    
+

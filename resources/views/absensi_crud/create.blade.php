@@ -1,35 +1,48 @@
 @extends('layout.template')
 <!-- START FORM -->
 @section('konten')
-    <form action='{{ url('absensi') }}' method='post'>
-    @csrf
-<div class="my-3 p-3 bg-body rounded shadow-sm">
-    <div class="mb-3 row">
-        <label for="nim" class="col-sm-2 col-form-label">NIM</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" name='nim' id="nim">
-        </div>
+    
+<form action='{{ url('absensi') }}' method='post'>
+@csrf
+
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <a href=" {{ url('absensi') }} " class="btn btn-secondary mb-3">Kembali</a>
+            <div class="mb-3 row">
+                <label for="nim" class="col-sm-2 col-form-label">NIM</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name='nim' value="{{ Session::get('nim') }}" id="nim">
+                </div>
+            </div>
+
+            {{-- Nama --}}
+            <div class="mb-3 row">
+                <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='nama' value="{{ Session::get('nama') }}" id="nama">
+                </div>
+            </div>
+
+            {{-- Jabatan --}}
+            <div class="mb-3 row">
+                <label for="jabatan" class="col-sm-2 col-form-label">Jabatan</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name='jabatan' value="{{ Session::get('jabatan') }}" id="jabatan">
+                        <option selected value="{{ Session::get('jabatan') }}"> -- Pilih Jabatan -- </option>
+                        <option value="SPV">SPV</option>
+                        <option value="Asisten">Asisten</option>
+                        <option value="Calas">Calas</option>
+                    </select>
+                </div>
+            </div>
+
+            {{-- Simpan Button --}}
+            <div class="mb-3 row"> 
+                <label for="jabatan" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary" name="submit">SIMPAN</button>
+                </div>
+            </div>
     </div>
-    <div class="mb-3 row">
-        <label for="nama" class="col-sm-2 col-form-label">Nama</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name='nama' id="nama">
-        </div>
-    </div>
-    <div class="mb-3 row">
-        <label for="jabatan" class="col-sm-2 col-form-label">Jabatan</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name='jabatan' id="jabatan">
-        </div>
-    </div>
-    <div class="mb-3 row">
-        <label for="jabatan" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary" name="submit">SIMPAN</button>
-        </div>
-    </div>
-  
-</div>
 </form>
 <!-- AKHIR FORM -->
 @endsection
