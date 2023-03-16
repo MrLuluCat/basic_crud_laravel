@@ -68,7 +68,6 @@ class absensiController extends Controller
             'nim' => $request->nim,
             'nama' => $request->nama,
             'jabatan' => $request->jabatan,
-
         ];
         absensi::create($data);
         return redirect()->to('absensi')->with('success','Berhasil Menambahkan Data');
@@ -134,6 +133,6 @@ class absensiController extends Controller
     public function destroy($id)
     {
         absensi::where('nim', $id)->delete();
-        return redirect()->to('absensi')->with('success','Berhasil Menghapus Data');
+        return redirect()->to('absensi')->with('delete','Berhasil Menghapus Data');
     }
 }

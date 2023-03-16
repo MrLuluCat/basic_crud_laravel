@@ -8,33 +8,35 @@
       <div class="pb-4">
         <form class="d-flex" action="{{ url('absensi') }}" method="get">
             <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" 
-            placeholder="Cari Nama / NIM" aria-label="Search">
+            placeholder="Masukkan kata kunci" aria-label="Search">
             <button class="btn btn-secondary btn-md" type="submit">Search</button>
         </form>
       </div>
 
       <!-- TOMBOL TAMBAH DATA -->
       <div class="pb-3">
-        <a href='{{ url('absensi/create') }}' class="btn btn-success">+ Tambah Data</a>
+        <a href='{{ url('presensi/create') }}' class="btn btn-primary">+ Tambah Data</a>
       </div>
 
       <table class="table table-striped">
           <thead>
               <tr>
                   <th class="col-md-1">No</th>
-                  <th class="col-md-3">NIM</th>
-                  <th class="col-md-4">Nama</th>
-                  <th class="col-md-2">Jabatan</th>
+                  <th class="col-md-2">NIM - Nama</th>
+                  <th class="col-md-2">Tanggal</th>
+                  <th class="col-md-3">Jam Masuk</th>
+                  <th class="col-md-3">Jam Keluar</th>
               </tr>
           </thead>
           <tbody>
-            <?php $i = $data->firstItem() ?>
-            @foreach ($data as $item)
+            <?php $i = $data2->firstItem() ?>
+            @foreach ($data2 as $item)
               <tr>
                 <td>{{ $i }}</td>
-                <td>{{ $item->nim }}</td>
-                <td>{{ $item->nama }}</td>
-                <td>{{ $item->jabatan }}</td>
+                <td>{{ $item->nim }} -- {{ $item->nama }}</td>
+                <td>{{ $item->tanggal }}</td>
+                <td>{{ $item->jam_masuk }}</td>
+                <td>{{ $item->jam_keluar }}</td>
                 <td>
                     <a href='{{ url('absensi/' .$item->nim. '/edit') }}' class="btn btn-warning btn-sm">Edit</a>
 
@@ -71,7 +73,7 @@
             @endforeach  
           </tbody>
       </table>
-      {{ $data->withQueryString()->links() }}
+      {{-- {{ $data->withQueryString()->links() }} --}}
      
 </div>
 <!-- AKHIR DATA -->
