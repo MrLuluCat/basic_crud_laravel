@@ -8,7 +8,7 @@
             </div> --}}
         </div>
         <div class="col-md-6">
-            <div class="text-justify mt-5"> 
+            <div class="text-justify mt-5" style=" color: aliceblue;" > 
                 <br>
                 Web ini dibuat untuk memudahkan presensi di LAB ICT Budi Luhur,dengan tampilan simpel dan mudah dimengerti pengguna.
                 Kami akan terus mengembangkan web ini agar dapat lebih efisien dan lebih baik lagi. saran anda sangat diperlukan, Terima kasih telah menggunakan layanan kami! 

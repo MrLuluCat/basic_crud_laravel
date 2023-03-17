@@ -10,7 +10,7 @@
     <div class="mb-3 mt-3 row">
         <label for="nim" class="col-sm-2 col-form-label">NIM</label>
         <div class="col-sm-10">
-            {{ $data->nim }}
+            <input type="text" class="form-control" name='nim' value="{{ $data->nim }}" id="nim">
         </div>
     </div>
 

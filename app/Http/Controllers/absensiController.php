@@ -115,6 +115,7 @@ class absensiController extends Controller
         ]);
 
         $data = [
+            'nim' => $request->nim,
             'nama' => $request->nama,
             'jabatan' => $request->jabatan,
         ];

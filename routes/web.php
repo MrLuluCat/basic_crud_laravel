@@ -23,8 +23,6 @@ Route::get('/', function () {
 Route::resource('absensi', absensiController::class);
 
 Route::resource('presensi', presensiController::class);
-// Route::resource('')
-// Route::view('/dashboard', '/layout/index');
 
 Route::get('/about', function () {
     return view('/component/about');

@@ -6,6 +6,7 @@ use App\Models\absensi;
 use App\Models\presensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 
 // use App\Models\Category;
@@ -13,27 +14,6 @@ use Carbon\Carbon;
 
 class presensiController extends Controller
 {
-
-    // public static function savePresensi($nim, $tanggal, $jam_masuk, $jam_keluar)
-    // {
-    //     $absensi = absensi::where('nim', '=', $nim)->first();
-    //     if ($absensi) {
-    //         $presensi = new Presensi([
-    //             'nim' => $nim,
-    //             'tanggal' => $tanggal,
-    //             'jam_masuk' => $jam_masuk,
-    //             'jam_keluar' => $jam_keluar,
-    //             'timestamp' => now(),
-    //         ]);
-
-    //         $presensi->save();
-
-    //         return $presensi;
-    //     } else {
-    //         return null;
-    //     }
-    // }
-
     /**
      * Display a listing of the resource.
      *
@@ -41,11 +21,14 @@ class presensiController extends Controller
      */
     public function index(Request $request)
     {
+        Session::flash('id', $request->id);
+        Session::flash('jam_masuk', $request->jam_masuk);
+        Session::flash('jam_keluar', $request->jam_keluar);
+
         $katakunci = $request->katakunci;
         $jumlahBaris = 5;
         if (strlen($katakunci)) {
             $data2 = presensi::where('idabsensi', 'like', "%$katakunci%")
-                // ->orWhere('nama_id', 'like', "%$katakunci%") 
                 ->orWhere('created_at', 'like', "%$katakunci%")
                 ->orWhere('jam_masuk', 'like', "%$katakunci%")
                 ->orWhere('jam_keluar', 'like', "%$katakunci%")
@@ -75,18 +58,14 @@ class presensiController extends Controller
      */
     public function store(Request $request)
     {
-        // $categories = DB::table('absensi')->get();
         // @dd($request->nim);
         $request->validate([
             'nim' => 'required',
             'jam_masuk' => 'nullable|date_format:H:i',
             'jam_keluar' => 'nullable|date_format:H:i',
         ]);
-       
-        // presensi::create($request->all());
         
         $presensi = presensi::where('idabsensi', $request->nim)
-            // ->where('nama_id', $request->nama)
             ->whereDate('created_at', Carbon::today())
             ->first();
         
@@ -105,14 +84,10 @@ class presensiController extends Controller
         
         $data2 = [
             'idabsensi' => $request->nim,
-            // 'nama_id' => $request->nama,
             'jam_masuk' => $request->jam_masuk,
-            'jam_keluar' => $request->jam_keluar,
-
         ];
         
         presensi::create($data2);
-        
         return redirect()->route('presensi.index')->with('success', 'Presensi berhasil disimpan!');
 
     }
@@ -136,7 +111,8 @@ class presensiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data2 = presensi::where('id', $id)->first();
+        return view('presensi_crud.edit')->with('data2', $data2);
     }
 
     /**
@@ -148,7 +124,35 @@ class presensiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $request->validate([
+            // 'idabsensi' => 'required',
+            'jam_masuk' => 'nullable',
+            'jam_keluar' => 'nullable|date_format:H:i',
+        ]);
+
+        $presensi2 = presensi::where('idabsensi', $request->nim)
+            ->first();
+
+        // @dd($presensi);
+
+        if ($presensi2) {
+            if ($presensi2->jam_keluar) {
+                return redirect()->back()->withErrors(['Anda sudah melakukan absen keluar hari ini']);
+            }
+
+            $presensi2->jam_keluar = Carbon::now();
+            $presensi2->save();
+
+            return redirect()->back()->withSuccess('Absen keluar berhasil');
+        }
+        // @dd($request->jam_keluar);
+        $data2 = [
+            'jam_masuk' => $request->jam_masuk,
+            'jam_keluar' => $request->jam_keluar,
+        ];
+        presensi::where('id', $id)->update($data2);
+        return redirect()->to('presensi');
     }
 
     /**

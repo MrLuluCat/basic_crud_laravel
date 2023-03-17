@@ -23,12 +23,12 @@
             </div> --}}
             <div class="form-group">
                 <label for="jam_masuk">Jam Masuk</label>
-                <input type="time" name="jam_masuk" id="jam_masuk" class="form-control">
+                <input type="time" name="jam_masuk" id="jam_masuk" value="jam_masuk" class="form-control">
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="jam_keluar">Jam Keluar</label>
                 <input type="time" name="jam_keluar" id="jam_keluar" class="form-control">
-            </div>
+            </div> --}}
             <button type="submit" class="btn btn-primary">Submit</button>
 </form>
     </div>
