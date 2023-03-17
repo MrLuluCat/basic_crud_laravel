@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class absensi extends Model
 {
     use HasFactory;
-    protected $fillable = ['nim', 'nama', 'jabatan'];
+    protected $fillable = ['id','nim', 'nama', 'jabatan'];
     protected $table = 'absensi';
     public $timestamps = false;
+    protected $primarykey = "id";
+
+    public function presensi()
+    {
+        return $this->hasMany(presensi::class);
+    }
 }

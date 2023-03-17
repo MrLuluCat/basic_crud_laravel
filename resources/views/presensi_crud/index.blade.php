@@ -22,8 +22,8 @@
           <thead>
               <tr>
                   <th class="col-md-1">No</th>
-                  <th class="col-md-2">NIM - Nama</th>
-                  <th class="col-md-2">Tanggal</th>
+                  <th class="col-md-2">NIM</th>
+                  <th class="col-md-2">Nama</th>
                   <th class="col-md-3">Jam Masuk</th>
                   <th class="col-md-3">Jam Keluar</th>
               </tr>
@@ -33,8 +33,8 @@
             @foreach ($data2 as $item)
               <tr>
                 <td>{{ $i }}</td>
-                <td>{{ $item->nim }} -- {{ $item->nama }}</td>
-                <td>{{ $item->tanggal }}</td>
+                <td>{{ $item->absensi->nim }}</td>
+                <td>{{ $item->absensi->nama }}</td>
                 <td>{{ $item->jam_masuk }}</td>
                 <td>{{ $item->jam_keluar }}</td>
                 <td>
@@ -53,15 +53,15 @@
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data?</h1>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
-                          <div class="modal-body">
+                          <div class="modal-body"> 
                             <p>Apakah Anda Yakin Untuk Menghapus Entry Data Ini?</p>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <form class="d-inline" action="{{ url('absensi/'.$item->nim) }}" method="POST">
+                            <form class="d-inline" action="{{ route('presensi.destroy', ['presensi' => $item->id]) }}" method="POST">
                               @csrf
                               @method('DELETE')
-                              <button type="submit" class="btn btn-danger">Delete</button>
+                              <button type="submit" class="btn btn-danger d-inline">Delete</button>
                             </form>
                           </div>
                         </div>

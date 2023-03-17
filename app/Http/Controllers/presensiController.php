@@ -44,13 +44,14 @@ class presensiController extends Controller
         $katakunci = $request->katakunci;
         $jumlahBaris = 5;
         if (strlen($katakunci)) {
-            $data2 = presensi::where('nim', 'like', "%$katakunci%")
-                ->orWhere('tanggal', 'like', "%$katakunci%")
+            $data2 = presensi::where('idabsensi', 'like', "%$katakunci%")
+                // ->orWhere('nama_id', 'like', "%$katakunci%") 
+                ->orWhere('created_at', 'like', "%$katakunci%")
                 ->orWhere('jam_masuk', 'like', "%$katakunci%")
                 ->orWhere('jam_keluar', 'like', "%$katakunci%")
                 ->paginate($jumlahBaris);
         } else {
-            $data2 = presensi::orderBy('nim', 'desc')->paginate($jumlahBaris);
+            $data2 = presensi::orderBy('idabsensi', 'desc')->paginate($jumlahBaris);
         }
         return view('presensi_crud.index')->with('data2', $data2);;
     }
@@ -63,6 +64,7 @@ class presensiController extends Controller
     public function create()
     {
         $categories = DB::table('absensi')->get();
+        // @dd($categories);
         // $categories = DB::table('absensi')->where('jabatan', 'SPV')->get();
         // $categories = DB::table('absensi')->where('jabatan', 'Asisten')->get();
         // $categories = DB::table('absensi')->where('jabatan', 'Calas')->get();
@@ -80,19 +82,21 @@ class presensiController extends Controller
     public function store(Request $request)
     {
         // $categories = DB::table('absensi')->get();
-        
+        // @dd($request->nim);
         $request->validate([
-            'nim' => 'required|exists:absensi,id',
-            'tanggal' => 'required|date',
+            'nim' => 'required',
             'jam_masuk' => 'nullable|date_format:H:i',
             'jam_keluar' => 'nullable|date_format:H:i',
         ]);
-
+       
         // presensi::create($request->all());
         
-        $presensi = presensi::where('nim', $request->nim)
-            ->whereDate('tanggal', Carbon::today())
+        $presensi = presensi::where('idabsensi', $request->nim)
+            // ->where('nama_id', $request->nama)
+            ->whereDate('created_at', Carbon::today())
             ->first();
+        
+        // @dd($presensi);
 
         if ($presensi) {
             if ($presensi->jam_keluar) {
@@ -104,16 +108,18 @@ class presensiController extends Controller
 
             return redirect()->back()->withSuccess('Absen keluar berhasil');
         }
-
+        
         $data2 = [
-            'nim' => $request->nim,
-            'tanggal' => Carbon::today(),
-            'jam_masuk' => Carbon::now(),
+            'idabsensi' => $request->nim,
+            // 'nama_id' => $request->nama,
+            'jam_masuk' => $request->jam_masuk,
+            'jam_keluar' => $request->jam_keluar,
+
         ];
-
+        
         presensi::create($data2);
-
-        return redirect()->route('presensi_crud.index')->with('success', 'Presensi berhasil disimpan!');
+        
+        return redirect()->route('presensi.index')->with('success', 'Presensi berhasil disimpan!');
 
     }
 
@@ -159,6 +165,7 @@ class presensiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        presensi::where('id', $id)->delete();
+        return redirect()->to('presensi')->with('delete', 'Berhasil Menghapus Data');
     }
 }

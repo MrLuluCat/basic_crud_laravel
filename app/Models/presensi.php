@@ -10,7 +10,12 @@ class presensi extends Model
     use HasFactory;
 
     protected $table = 'presensi';
-    protected $fillable = ['nim', 'tanggal', 'jam_masuk', 'jam_keluar'];
+    protected $fillable = ['id','idabsensi', 'jam_masuk', 'jam_keluar'];
     public $timestamps = true;
+
+    public function absensi()
+    {
+        return $this->belongsTo(absensi::class, 'idabsensi');
+    }
 
 }

@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('presensi', function (Blueprint $table) {
-            $table->char('nim');
-            $table->date('tangggal');
+            $table->id();
+            $table->bigInteger('idabsensi')->unsigned();
+            $table->foreign('idabsensi')->references('id')->on('absensi');
             $table->time('jam_masuk')->nullable();
             $table->time('jam_keluar')->nullable();
             $table->timestamps();

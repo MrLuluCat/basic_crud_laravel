@@ -74,16 +74,16 @@
             <div class="form-group">
                 <label for="nim">NIM</label>
                 {{-- <input type="text" name="nim" id="nim" class="form-control"> --}}
-                <select class="form-select" aria-label="Default select example" name="nim" id="nim">
+                <select class="form-select" aria-label="Default select example" value="nim" name="nim" id="nim">
                     @foreach($categories as $category)
-                        <option value="{{ $category->nim }}">{{ $category->nama }} -- {{ $category->jabatan }}</option>
+                        <option value="{{ $category->id }}">{{ $category->nim }} -- {{ $category->nama }} -- {{ $category->jabatan }}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="tanggal">Tanggal</label>
                 <input type="date" name="tanggal" id="tanggal" class="form-control">
-            </div>
+            </div> --}}
             <div class="form-group">
                 <label for="jam_masuk">Jam Masuk</label>
                 <input type="time" name="jam_masuk" id="jam_masuk" class="form-control">
