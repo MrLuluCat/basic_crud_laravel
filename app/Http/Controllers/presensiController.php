@@ -53,7 +53,7 @@ class presensiController extends Controller
         } else {
             $data2 = presensi::orderBy('idabsensi', 'desc')->paginate($jumlahBaris);
         }
-        return view('presensi_crud.index')->with('data2', $data2);;
+        return view('presensi_crud.index')->with('data2', $data2);
     }
 
     /**
@@ -64,13 +64,7 @@ class presensiController extends Controller
     public function create()
     {
         $categories = DB::table('absensi')->get();
-        // @dd($categories);
-        // $categories = DB::table('absensi')->where('jabatan', 'SPV')->get();
-        // $categories = DB::table('absensi')->where('jabatan', 'Asisten')->get();
-        // $categories = DB::table('absensi')->where('jabatan', 'Calas')->get();
         return view('presensi_crud.create', compact('categories'));
-        
-        // return view('presensi_crud.create');
     }
 
     /**
@@ -165,7 +159,12 @@ class presensiController extends Controller
      */
     public function destroy($id)
     {
-        presensi::where('id', $id)->delete();
+        // @dd($id);
+        // presensi::where('id', $id)->delete();
+        
+
+        $del = presensi::findorfail($id);
+        $del->delete();
         return redirect()->to('presensi')->with('delete', 'Berhasil Menghapus Data');
     }
 }

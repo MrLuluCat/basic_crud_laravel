@@ -1,13 +1,13 @@
-@extends('layout.template')
+@extends('layout.home')
 <!-- START FORM -->
-@section('konten')
+@section('isi')
 
 <form action='{{ route('presensi.store') }}' method='post'>
     @csrf   
 
     <div class="my-3 p-3 bg-body rounded shadow-sm">
             <a href=" {{ url('presensi') }} " class="btn btn-secondary mb-3">Kembali</a>
-
+            
             <div class="form-group">
                 <label for="nim">NIM</label>
                 {{-- <input type="text" name="nim" id="nim" class="form-control"> --}}
@@ -30,7 +30,9 @@
                 <input type="time" name="jam_keluar" id="jam_keluar" class="form-control">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+        
+    </form>         
     </div>
+</form>
 <!-- AKHIR FORM -->
 @endsection

@@ -23,9 +23,10 @@
               <tr>
                   <th class="col-md-1">No</th>
                   <th class="col-md-2">NIM</th>
-                  <th class="col-md-2">Nama</th>
-                  <th class="col-md-3">Jam Masuk</th>
-                  <th class="col-md-3">Jam Keluar</th>
+                  <th class="col-md-3">Nama</th>
+                  <th class="col-md-2">Jam Masuk</th>
+                  <th class="col-md-2">Jam Keluar</th>
+                  <th class="col-md-2">Action</th>
               </tr>
           </thead>
           <tbody>
@@ -38,15 +39,22 @@
                 <td>{{ $item->jam_masuk }}</td>
                 <td>{{ $item->jam_keluar }}</td>
                 <td>
-                    <a href='{{ url('absensi/' .$item->nim. '/edit') }}' class="btn btn-warning btn-sm">Edit</a>
+                    <a href='{{ url('presensi/' .$item->id. '/edit') }}' class="btn btn-warning btn-sm">Edit</a>
 
                       <!-- Button trigger modal -->
-                    <button type="submit" class="btn btn-danger btn-sm" name="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="submit" class="btn btn-danger btn-sm" name="submit" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $item->id }}">
                       Delete
                     </button>
-
+                   
                       <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                </td>
+              </tr>
+              <?php $i++ ?>
+              @endforeach 
+              
+              
+              @foreach ($data2 as $item)
+                    <div class="modal fade" id="exampleModal{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -58,7 +66,8 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <form class="d-inline" action="{{ route('presensi.destroy', ['presensi' => $item->id]) }}" method="POST">
+                            {{-- <form class="d-inline" action="{{ route('presensi.destroy', ['presensi' => $item->id]) }}" method="POST"> --}}
+                            <form class="d-inline" action="{{ url('presensi/'.$item->id) }}" method="POST">
                               @csrf
                               @method('DELETE')
                               <button type="submit" class="btn btn-danger d-inline">Delete</button>
@@ -67,10 +76,7 @@
                         </div>
                       </div>
                     </div>
-                  </td>
-              </tr>
-              <?php $i++ ?>
-            @endforeach  
+                    @endforeach
           </tbody>
       </table>
       {{-- {{ $data->withQueryString()->links() }} --}}

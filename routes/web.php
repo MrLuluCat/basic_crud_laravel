@@ -17,13 +17,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/layout/index');
 });
 
 Route::resource('absensi', absensiController::class);
 
 Route::resource('presensi', presensiController::class);
+// Route::resource('')
+// Route::view('/dashboard', '/layout/index');
 
-Auth::routes();
+Route::get('/about', function () {
+    return view('/component/about');
+});
+
+// belajar_laravel\resources\views\component\about . blade . php
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

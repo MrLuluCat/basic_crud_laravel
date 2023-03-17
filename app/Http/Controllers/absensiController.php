@@ -132,7 +132,9 @@ class absensiController extends Controller
      */
     public function destroy($id)
     {
-        absensi::where('nim', $id)->delete();
+        // absensi::where('nim', $id)->delete();
+        $del = absensi::findorfail($id);
+        $del->delete();
         return redirect()->to('absensi')->with('delete','Berhasil Menghapus Data');
     }
 }

@@ -39,12 +39,19 @@
                     <a href='{{ url('absensi/' .$item->nim. '/edit') }}' class="btn btn-warning btn-sm">Edit</a>
 
                       <!-- Button trigger modal -->
-                    <button type="submit" class="btn btn-danger btn-sm" name="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="submit" class="btn btn-danger btn-sm" name="submit" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $item->id }}">
                       Delete
                     </button>
 
-                      <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      
+                    
+                  </td>
+              </tr>
+              <?php $i++ ?>
+              @endforeach
+            <!-- Modal -->
+            @foreach ($data as $item)
+            <div class="modal fade" id="exampleModal{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -65,10 +72,7 @@
                         </div>
                       </div>
                     </div>
-                  </td>
-              </tr>
-              <?php $i++ ?>
-            @endforeach  
+              @endforeach
           </tbody>
       </table>
       {{ $data->withQueryString()->links() }}
