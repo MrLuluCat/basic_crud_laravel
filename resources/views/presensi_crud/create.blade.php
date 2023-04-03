@@ -23,7 +23,7 @@
             </div> --}}
             <div class="form-group">
                 <label for="jam_masuk">Jam Masuk</label>
-                <input type="time" name="jam_masuk" id="jam_masuk" value="jam_masuk" class="form-control">
+                <input type="time" name="jam_masuk" id="jam_masuk" value="{{ \Carbon\Carbon::now('Asia/Jakarta')->format('H:i') }}" class="form-control">
             </div>
             {{-- <div class="form-group">
                 <label for="jam_keluar">Jam Keluar</label>

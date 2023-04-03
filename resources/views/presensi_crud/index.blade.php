@@ -16,7 +16,7 @@
 
       <!-- TOMBOL TAMBAH DATA -->
       <div class="pb-3">
-        <a href='{{ url('presensi/create') }}' class="btn btn-primary">+ Tambah Data</a>
+        <a href='{{ url('presensi/create') }}' class="btn btn-primary">+ Tambah Presensi</a>
       </div>
 
       <table class="table table-striped">
@@ -41,7 +41,13 @@
                 <td>{{ $item->jam_keluar }}</td>
                 <td>
                     <a href='{{ url('presensi/' .$item->id. '/edit') }}' class="btn btn-warning btn-sm">Edit</a>
-
+                  {{-- <form action='{{ url('presensi/'.$item->id) }}' method='post'>
+                    @csrf
+                    @method('PUT') 
+                    
+                    <button name="jam_keluar" id="jam_keluar" type="submit" class="btn btn-primary btn-sm d-inline" 
+                    value="{{ Carbon\Carbon::now('Asia/Jakarta')->format('H:i') }}">Submit</button>
+                  </form> --}}
                       <!-- Button trigger modal -->
                     <button type="submit" class="btn btn-danger btn-sm" name="submit" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $item->id }}">
                       Delete
@@ -54,6 +60,7 @@
               @endforeach 
               
               
+
               @foreach ($data2 as $item)
                     <div class="modal fade" id="exampleModal{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
@@ -77,10 +84,10 @@
                         </div>
                       </div>
                     </div>
-                    @endforeach
+              @endforeach
           </tbody>
       </table>
-      {{-- {{ $data->withQueryString()->links() }} --}}
+      {{ $data2->withQueryString()->links() }}
      
 </div>
 <!-- AKHIR DATA -->

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data Mahasiswa</title>
+    <title>Web Absensi</title>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" 
@@ -21,9 +21,9 @@
     <div my-2 px-4>
       <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid px-4">
-          {{-- <a class="navbar-brand" href="#">
-            <img src="..\public\storage\images\logo_ict1.png" alt="logo_ict1" width="110px;" height="70px;">
-          </a> --}}
+          <a class="navbar-brand" href="{{ url('/') }}">
+            <span class="text-white">Web Absensi</span>
+          </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

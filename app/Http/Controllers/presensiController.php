@@ -34,7 +34,7 @@ class presensiController extends Controller
                 ->orWhere('jam_keluar', 'like', "%$katakunci%")
                 ->paginate($jumlahBaris);
         } else {
-            $data2 = presensi::orderBy('idabsensi', 'desc')->paginate($jumlahBaris);
+            $data2 = presensi::orderBy('jam_masuk', 'asc')->paginate($jumlahBaris);
         }
         return view('presensi_crud.index')->with('data2', $data2);
     }
@@ -126,7 +126,7 @@ class presensiController extends Controller
     {
 
         $request->validate([
-            // 'idabsensi' => 'required',
+            // 'idabsensi' => 'unique',
             'jam_masuk' => 'nullable',
             'jam_keluar' => 'nullable|date_format:H:i',
         ]);
@@ -141,20 +141,26 @@ class presensiController extends Controller
                 return redirect()->back()->withErrors(['Anda sudah melakukan absen keluar hari ini']);
             }
 
-            $presensi2->jam_keluar = Carbon::now();
+            $presensi2->jam_keluar = Carbon::now('Asia/Jakarta')->format('H:i')();
             $presensi2->save();
 
             return redirect()->back()->withSuccess('Absen keluar berhasil');
         }
+
+        // $timeNow = Carbon::now();
+        // echo $timeNow->jam_keluar();
+
         // @dd($request->jam_keluar);
+
         $data2 = [
             'jam_masuk' => $request->jam_masuk,
             'jam_keluar' => $request->jam_keluar,
         ];
+        
         presensi::where('id', $id)->update($data2);
         return redirect()->to('presensi');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *

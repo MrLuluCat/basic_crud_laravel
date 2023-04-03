@@ -24,7 +24,7 @@ class absensiController extends Controller
                     ->orWhere('jabatan', 'like', "%$katakunci%")
                     ->paginate($jumlahBaris);
         } else {
-            $data = absensi::orderBy('nim', 'desc')->paginate($jumlahBaris);
+            $data = absensi::orderBy('id', 'desc')->paginate($jumlahBaris);
         }
         return view('absensi_crud.index')->with('data', $data);
     }
@@ -115,7 +115,6 @@ class absensiController extends Controller
         ]);
 
         $data = [
-            'nim' => $request->nim,
             'nama' => $request->nama,
             'jabatan' => $request->jabatan,
         ];
@@ -133,9 +132,12 @@ class absensiController extends Controller
      */
     public function destroy($id)
     {
-        // absensi::where('nim', $id)->delete();
-        $del = absensi::findorfail($id);
-        $del->delete();
-        return redirect()->to('absensi')->with('delete','Berhasil Menghapus Data');
+        absensi::where('nim', $id)->delete();
+        
+        // $del = absensi::findorfail($id);
+        // $del->delete();
+        return redirect()->to('absensi')->with('success', 'Berhasil Menghapus Data');
+        // return redirect()->to('/absensi')->with('delete','Berhasil Menghapus Data');
+        // @dd(return redirect()->to('/absensi')->with('delete', 'Berhasil Menghapus Data'););
     }
 }

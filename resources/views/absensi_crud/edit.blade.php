@@ -10,7 +10,8 @@
     <div class="mb-3 mt-3 row">
         <label for="nim" class="col-sm-2 col-form-label">NIM</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name='nim' value="{{ $data->nim }}" id="nim">
+            {{-- <input type="text" class="form-control" name='nim' value="{{ $data->nim }}" id="nim"> --}}
+            <input class="form-control" type="text" value="{{ $data->nim }}" aria-label="Disabled input example" disabled readonly>
         </div>
     </div>
 

@@ -2,7 +2,10 @@
 @section('konten')
     <!-- Tambahkan navbar dengan kode Bootstrap 5 -->
     <div class="mt-5">
-        
+        <div class="d-flex justify-content-center">
+            <span style="color: aliceblue; font-size: 24px; font-weight: bold;"></span>
+            <img src="{{ asset('images\logo_labict2.png') }}" alt="logo.labict2.png" width='400px'>
+        </div> 
         <h1 style="text-align: center; margin-bottom: 20px; color: aliceblue;">Selamat Datang di Web Absensi</h1>
         <div style="display: flex; justify-content: center; color: aliceblue;">
             <span style="color: aliceblue; font-size: 24px; font-weight: bold;">Laboratorium&nbsp;</span>

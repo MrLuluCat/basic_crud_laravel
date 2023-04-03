@@ -25,7 +25,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-primary">
+    <nav class="navbar navbar-expand-lg text-swhite-">
         <div class="container-fluid">
           {{-- <a class="navbar-brand" href="#">
             <img src="..\public\storage\images\logo_ict1.png" alt="logo_ict1" width="110px;" height="70px;">
